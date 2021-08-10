@@ -4,6 +4,7 @@ const {
   readInput,
   listDeleteTask,
   confirm,
+  showCheckList
 } = require("./helpers/inquirer");
 const { saveDB, readDB } = require("./helpers/saveArchive");
 const Tasks = require("./models/tasks");
@@ -29,15 +30,24 @@ const main = async () => {
         const desc = await readInput("Descripcion:");
         tasks.createTask(desc);
         break;
+
       case "2":
         tasks.listComplete();
         break;
+
       case "3":
         tasks.listComepletedTasks(true);
         break;
+
       case "4":
         tasks.listComepletedTasks(false);
         break;
+
+      case "5":
+        const ids = await showCheckList(tasks.listArr);
+        tasks.toggleCompleted(ids)
+        break;
+        
       case "6":
         const id = await listDeleteTask(tasks.listArr);
         if (id !== '0'){

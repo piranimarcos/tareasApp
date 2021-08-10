@@ -13,8 +13,8 @@ class Tasks {
     this._list = {};
   }
 
-  deleteTask( id = '' ){
-    if(this._list[id]){
+  deleteTask(id = "") {
+    if (this._list[id]) {
       delete this._list[id];
     }
   }
@@ -49,12 +49,12 @@ class Tasks {
 
     this.listArr.forEach((task, i) => {
       const { desc, completed } = task;
-      const state = completed ? "Completade".green : "Pendiente".red;
+      const state = completed ? "Completada".green : "Pendiente".red;
 
       if (completedOpt) {
         if (completed) {
           cont++;
-          console.log(`${(cont + ".").green} ${desc} :: ${state}`);
+          console.log(`${(cont + ".").green} ${desc} :: ${completed.green}`);
         }
       } else {
         if (!completed) {
@@ -62,6 +62,19 @@ class Tasks {
           console.log(`${(cont + ".").green} ${desc} :: ${state}`);
         }
       }
+    });
+  }
+
+  toggleCompleted(ids = []) {
+    ids.forEach((id) => {
+      const task = this._list[id];
+      if (!task.completed) {
+        task.completed = new Date().toISOString();
+      }
+    });
+
+    this.listArr.forEach((task) => {
+      if (!ids.includes(task.id)) this._list[task.id].completed = null;
     });
   }
 }
