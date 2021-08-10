@@ -47,12 +47,13 @@ const main = async () => {
             console.log('Tarea borrada Correctamente'.blue)
           }
         }
+
         break;
     }
 
     saveDB(tasks.listArr);
-    if (opt !== '0') await pause();
-  } while (opt !== '0');
+    if (opt !== "0") await pause();
+  } while (opt !== "0");
 };
 
 main();
